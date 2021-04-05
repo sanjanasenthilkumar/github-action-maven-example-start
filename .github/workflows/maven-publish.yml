@@ -21,6 +21,19 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: create path
+      uses: actions/checkout@v2
+
+    - run:  mkdir -p path/to/artifact
+
+    - run: echo hello > path/to/artifact/world.txt
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.1
+      with:
+         name: artifact
+         path: path/to/artifact/world.txt
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
